@@ -1,0 +1,35 @@
+@font-face {
+    font-family: jakartaSans;
+    src: url(../fonts/PlusJakartaSans-VariableFont_wght.woff2);
+}
+
+* {
+    font-family: jakartaSans, sans-serif;
+}
+
+body {
+    background-color: #d6e3f5;
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+}
+
+#searchbar > * {
+    border: 0px;
+    height: 35px;
+}
+
+#search {
+    width: 25vw;
+    border-radius: 10px 0px 0px 10px;
+
+    box-sizing: border-box;
+    padding: 10px;
+    
+}
+
+#searchbar button {
+    border-radius: 0px 10px 10px 0px    ;
+}
