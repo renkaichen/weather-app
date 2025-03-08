@@ -6,6 +6,7 @@ function initalize() {
 
 function search() {
     const input = document.getElementById("search").value;
+    document.getElementById("search").value = '';
     getWeatherData(input);
 }
 
@@ -19,6 +20,11 @@ function initalizeSearchbar() {
     input.type = "text";
     input.placeholder = "Enter a location";
     input.setAttribute("id", "search");
+    input.addEventListener("keypress", (event) => {
+        if (event.key == "Enter") {
+            search()}
+        }
+    );
 
     button.textContent = "Search";
     button.addEventListener("click", () => search());

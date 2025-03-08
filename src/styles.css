@@ -14,7 +14,8 @@
 }
 
 body {
-    background-color: #d6e3f5;
+    background-color: #d6e3f5;  
+    background-color: rgb(14, 14, 14);
 }
 
 #content {
@@ -22,7 +23,7 @@ body {
     flex-direction: column;
     align-items: center;
 
-    gap: 50px;
+    gap: 30px;
 }
 
 #searchbar > * {
@@ -109,16 +110,65 @@ body {
 
     display: flex;
     flex-direction: column;
+
+    overflow-y: auto;
+    max-height: 490px;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(230, 230, 230) white;
 }
 
 .day {
     display: flex;
     box-sizing: border-box;
-    padding: 10px 0px;
+    padding: 20px 0px;
     gap: 10px;
     border-top: 1px solid grey;
 }
 
-#weekCard > h2 {
+.day>p:first-child {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.day>p:last-child {
+    justify-self: end;
+}
+
+#weekCard > div:first-child {
+    font-weight: bold;
+    background-color: white;
     margin-bottom: 10px;
+    display:flex;
+}
+
+#windCard {
+    background-color: white;
+    grid-column: 2/3;
+    grid-row: 3/4;
+
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#windCard > div:first-child {
+    font-weight: bold;
+    background-color: white;
+    padding-bottom: 10px;
+    display:flex;
+}
+
+.windData {
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    gap: 10px;
+    border-top: 1px solid grey;
+    font-weight: 400;
+    font-size: 18px;
 }
