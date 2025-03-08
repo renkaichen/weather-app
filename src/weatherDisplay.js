@@ -1,5 +1,5 @@
 async function getWeatherData(location) {
-    const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=current&key=ECD428Y2SW62PXFBMX24NXTQ8&contentType=json`, {mode: "cors"});
+    const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=current&key=ECD428Y2SW62PXFBMX24NXTQ8&contentType=json&elements=%2Baqius`, {mode: "cors"});
     const cityData = await response.json();
     displayWeatherData(cityData);
 }
@@ -10,6 +10,7 @@ function displayWeatherData(data) {
     displayCurrent(data);
     displayWeek(data);
     displayWind(data);
+    displayAirQuality(data);
 }
 
 function displayCurrent(data) {
@@ -109,6 +110,30 @@ function displayWind(data) {
     dir.classList.add("windData");
 
     card.append(header, speed, gust, dir)
+    weatherContent.appendChild(card);
+}
+
+function displayAirQuality(data) {
+    const weatherContent = document.getElementById("weatherContent"); 
+    
+    const card = document.createElement("div");
+    card.setAttribute("id", "aqCard");
+
+    const header = document.createElement("div");
+    header.textContent = "Air Quality";
+
+    const aq = document.createElement("h1");
+    aq.textContent = data.currentConditions.aqius;
+
+    const meter = document.createElement("meter");
+    meter.value = data.currentConditions.aqius;
+    meter.optimum = "0";
+    meter.low = "50";
+    meter.high = "200";
+    meter.min = "0";
+    meter.max = "500";
+
+    card.append(header, aq, meter);
     weatherContent.appendChild(card);
 }
 

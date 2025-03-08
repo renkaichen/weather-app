@@ -94,14 +94,14 @@ body {
 
 #weatherContent {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr 2fr;
     grid-template-columns: 3fr 2fr;
     gap: 10px;
 }
 
 #weekCard {
     grid-column: 1/2;
-    grid-row: 2 / 4;
+    grid-row: 2 / 5;
 
     background-color: white;
     border-radius: 10px;
@@ -112,7 +112,7 @@ body {
     flex-direction: column;
 
     overflow-y: auto;
-    max-height: 490px;
+    max-height: 510px;
     scrollbar-width: thin;
     scrollbar-color: rgb(230, 230, 230) white;
 }
@@ -144,12 +144,12 @@ body {
 #windCard {
     background-color: white;
     grid-column: 2/3;
-    grid-row: 3/4;
+    grid-row: 4/5;
 
     background-color: white;
     border-radius: 10px;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 15px;
 
     display: flex;
     flex-direction: column;
@@ -167,8 +167,23 @@ body {
     display: flex;
     box-sizing: border-box;
     padding: 10px 0px;
-    gap: 10px;
+    gap: 0px;
     border-top: 1px solid grey;
     font-weight: 400;
     font-size: 18px;
+}
+
+#aqCard {
+    background-color: white;
+    grid-column: 2/3;
+    grid-row: 3/4;
+
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+meter {
+    width: 200px;
 }
