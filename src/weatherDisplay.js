@@ -5,10 +5,11 @@ async function getWeatherData(location) {
 }
 
 function displayWeatherData(data) {
+    const weatherContent = document.getElementById("weatherContent");
+    weatherContent.innerHTML = '';
     displayCurrent(data);
+    displayWeek(data);
     // const currentConditions = data.currentConditions;
-    // const weatherContent = document.getElementById("weatherContent");
-    // weatherContent.innerHTML = '';
 
     // const city = document.createElement("h1");
     // city.textContent = data.resolvedAddress; 
@@ -56,7 +57,7 @@ function displayCurrent(data) {
     weather.setAttribute("id", "weather");
     const tempHolder = document.createElement("div");
     tempHolder.setAttribute("id", "tempHolder");
-    
+
     const temp = document.createElement("h1");
     temp.textContent = currentConditions.temp + "\u00b0";
    
@@ -74,5 +75,38 @@ function displayCurrent(data) {
     card.appendChild(weather);
     weatherContent.appendChild(card);
 }
+
+function displayWeek(data) {
+    const weatherContent = document.getElementById("weatherContent");
+    const weekConditions = data.days;
+    console.log(weekConditions);
+
+    const card = document.createElement("div");
+    card.setAttribute("id", "weekCard");
+    const header = document.createElement("h2");
+    header.textContent = "Next Week";
+
+    card.appendChild(header);
+
+    for (let i = 1; i < 11; i++) {
+        const day = document.createElement("div");
+        day.classList.add("day");
+
+        const date = document.createElement("p");
+        date.textContent = weekConditions[i].datetime;
+        
+        const high = document.createElement("p");
+        high.textContent = weekConditions[i].tempmax + "\u00b0";
+
+        const low = document.createElement("p");
+        low.textContent = weekConditions[i].tempmin + "\u00b0";
+
+        day.append(date,high,low);
+        card.appendChild(day);
+    }
+
+    weatherContent.appendChild(card);
+}
+
 
 export default getWeatherData;
