@@ -27,7 +27,7 @@ function initalizeSearchbar() {
     searchbar.appendChild(input);
     searchbar.appendChild(button);
 
-    content.appendChild(searchbar);
+    content.prepend(searchbar);
 }
 
 export default initalize;

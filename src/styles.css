@@ -3,8 +3,14 @@
     src: url(../fonts/PlusJakartaSans-VariableFont_wght.woff2);
 }
 
+@font-face {
+    font-family: jakartaSansItalic;
+    src: url(../fonts/PlusJakartaSans-Italic-VariableFont_wght.woff2);
+}
+
 * {
     font-family: jakartaSans, sans-serif;
+    margin: 0px;
 }
 
 body {
@@ -13,12 +19,16 @@ body {
 
 #content {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 50px;
 }
 
 #searchbar > * {
     border: 0px;
     height: 35px;
+    margin-top: 10px;
 }
 
 #search {
@@ -33,3 +43,49 @@ body {
 #searchbar button {
     border-radius: 0px 10px 10px 0px    ;
 }
+
+#timePlace {
+    display: flex;
+    justify-content: space-between;
+}
+
+#timePlace > p:last-child {
+    color: grey;
+    font-family: jakartaSansItalic;
+    font-weight: 350;
+}
+
+#currentCard {
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    padding: 20px 20px 30px 20px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(53, 53, 53);
+    font-weight: 500;
+    border-radius: 10px;
+    width: min(100vw, 750px);
+}
+
+#tempHolder {
+    width: fit-content;
+    position: relative;
+}
+
+#tempHolder > h1 {
+    font-size: 100px;
+}
+
+#tempMarker {
+    position: absolute;
+    font-size: 45px;
+    font-weight: 1000;
+    bottom: 12px;
+    right: 14px;
+}
+
+#weather > h1:nth-child(2) {
+    font-weight: 400;
+}
+
