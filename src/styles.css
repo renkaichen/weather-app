@@ -23,7 +23,7 @@ body {
     flex-direction: column;
     align-items: center;
 
-    gap: 30px;
+    gap: 20px;
 }
 
 #searchbar > * {
@@ -94,25 +94,20 @@ body {
 
 #weatherContent {
     display: grid;
-    grid-template-rows: 2fr 1fr 1fr 2fr;
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 2fr;
     gap: 10px;
+    max-height: 90vh;
 }
 
 #weekCard {
     grid-column: 1/2;
-    grid-row: 2 / 5;
-
-    background-color: white;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 20px;
+    grid-row: 2 / 6;
 
     display: flex;
     flex-direction: column;
 
     overflow-y: auto;
-    max-height: 510px;
     scrollbar-width: thin;
     scrollbar-color: rgb(230, 230, 230) white;
 }
@@ -144,12 +139,8 @@ body {
 #windCard {
     background-color: white;
     grid-column: 2/3;
-    grid-row: 4/5;
-
-    background-color: white;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 15px;
+    grid-row: 4/6;
+    padding: 10px;
 
     display: flex;
     flex-direction: column;
@@ -159,14 +150,14 @@ body {
 #windCard > div:first-child {
     font-weight: bold;
     background-color: white;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     display:flex;
 }
 
 .windData {
     display: flex;
     box-sizing: border-box;
-    padding: 10px 0px;
+    padding: 5px 0px;
     gap: 0px;
     border-top: 1px solid grey;
     font-weight: 400;
@@ -174,16 +165,21 @@ body {
 }
 
 #aqCard {
-    background-color: white;
     grid-column: 2/3;
-    grid-row: 3/4;
+    grid-row: 2/3;
+}
 
+meter {
+    width: 200px;
+}
+
+#weatherContent > * {
     background-color: white;
     border-radius: 10px;
     box-sizing: border-box;
     padding: 20px;
 }
 
-meter {
-    width: 200px;
+#precipCard > h1 {
+    font-size: 30px;
 }

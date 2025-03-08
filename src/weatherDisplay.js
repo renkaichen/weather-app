@@ -11,6 +11,7 @@ function displayWeatherData(data) {
     displayWeek(data);
     displayWind(data);
     displayAirQuality(data);
+    displayPrecip(data);
 }
 
 function displayCurrent(data) {
@@ -134,6 +135,22 @@ function displayAirQuality(data) {
     meter.max = "500";
 
     card.append(header, aq, meter);
+    weatherContent.appendChild(card);
+}
+
+function displayPrecip(data) {
+    const weatherContent = document.getElementById("weatherContent"); 
+    
+    const card = document.createElement("div");
+    card.setAttribute("id", "precipCard");
+
+    const header = document.createElement("div");
+    header.textContent = "Precipitation";
+
+    const precip = document.createElement("h1");
+    precip.textContent = `${data.currentConditions.precipprob}%`;
+
+    card.append(header, precip);
     weatherContent.appendChild(card);
 }
 
