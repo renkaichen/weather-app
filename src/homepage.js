@@ -13,7 +13,7 @@ function search() {
 function initalizeSearchbar() {
     const content = document.getElementById("content");
     const input = document.createElement("input");
-    const button = document.createElement("button");
+    const button = document.createElement("div");
     const searchbar = document.createElement("div");
 
     
@@ -26,7 +26,6 @@ function initalizeSearchbar() {
         }
     );
 
-    button.textContent = "Search";
     button.addEventListener("click", () => search());
 
     searchbar.setAttribute("id", "searchbar");

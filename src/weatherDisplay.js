@@ -90,9 +90,12 @@ function displayWeek(data) {
     const forecastIcon = new Image(22, 22);
     forecastIcon.src = forecast;
     forecastIcon.style.marginLeft = "3px";
+    forecastIcon.style.filter = "invert(100%)";
     header.append(forecastIcon);
 
     card.appendChild(header);
+
+    const scrollable = document.createElement("div");
 
     for (let i = 1; i < 15; i++) {
         const day = document.createElement("div");
@@ -111,9 +114,9 @@ function displayWeek(data) {
         low.textContent = weekConditions[i].tempmin + "\u00b0";
 
         day.append(date,icon,high,low);
-        card.appendChild(day);
+        scrollable.appendChild(day);
     }
-
+    card.appendChild(scrollable);
     weatherContent.appendChild(card);
 }
 
@@ -129,6 +132,7 @@ function displayWind(data) {
     const windIcon = new Image(22, 22);
     windIcon.src = wind;
     windIcon.style.marginLeft = "3px";
+    windIcon.style.filter = "invert(100%)";
     header.appendChild(windIcon);
 
     const speed = document.createElement("p");
@@ -183,6 +187,7 @@ function displayPrecip(data) {
     const icon = new Image(20, 20);
     icon.src = precipIcon;
     icon.style.marginLeft = "5px";
+    icon.style.filter = "invert(100%)";
     header.appendChild(icon);
     
     const precip = document.createElement("h1");
@@ -230,9 +235,11 @@ function getForecastIcon(data, day) {
 }
 
 function isNight(data) {
-    const current = new Date(data.currentConditions.datetime);
-    const sunset = new Date(data.currentConditions.sunset);
-    return current > sunset;
+    const current = new Date(data.currentConditions.datetimeEpoch);
+    const sunset = new Date(data.currentConditions.sunsetEpoch);
+    const sunrise = new Date(data.currentConditions.sunriseEpoch);
+    console.log(sunrise);
+    return current > sunset || current < sunrise;
 }
 
 function formatDate(date) {
