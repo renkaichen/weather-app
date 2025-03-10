@@ -2,7 +2,6 @@ import getWeatherData from "./weatherDisplay";
 let favoriteLocations = [];
 
 function loadSavedData() {
-    console.log(localStorage.getItem('favoriteLocations'));
     if (localStorage.getItem('favoriteLocations') != undefined) {
         favoriteLocations = JSON.parse(localStorage.getItem('favoriteLocations'));
     }
@@ -68,12 +67,24 @@ function initalizeFavorites() {
 
 function displayFavorite(index) {
     getWeatherData(favoriteLocations[index], true);
-    location.textContent = favoriteLocations[index];
 }
 
 export function addFavorite(location) {
     favoriteLocations.push(location);
     localStorage.setItem('favoriteLocations', JSON.stringify(favoriteLocations));
+}
+
+export function unfavorite(location) {
+    favoriteLocations.splice(favoriteLocations.indexOf(location), 1);
+    localStorage.setItem('favoriteLocations', JSON.stringify(favoriteLocations));
+}
+
+export function checkFavorites(location) {
+    if (favoriteLocations.includes(location)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 export default initalize;

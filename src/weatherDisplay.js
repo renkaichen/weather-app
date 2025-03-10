@@ -10,7 +10,7 @@ import wind from "../icons/wind.svg";
 import precipIcon from "../icons/precip.svg";
 import favorited from "../icons/star.svg"
 import notFavorited from "../icons/star-outline.svg";
-import { addFavorite } from "./homepage";
+import { addFavorite, checkFavorites, unfavorite} from "./homepage";
 
 async function getWeatherData(location, forFavorite = false) {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=current&key=ECD428Y2SW62PXFBMX24NXTQ8&contentType=json&elements=%2Baqius`, {mode: "cors"});
@@ -51,10 +51,26 @@ function displayCurrent(data, forFavorite) {
     const favoriteIcon = new Image(35,35);
     favoriteIcon.style.filter = "invert(50%)";
     favoriteIcon.src = notFavorited;
-    favoriteIcon.addEventListener("click", () => {
-        addFavorite(data.resolvedAddress);
+    if (checkFavorites(data.resolvedAddress) ? favoriteIcon.dataset.isFavorite = true: favoriteIcon.dataset.isFavorite = false);
+    if (favoriteIcon.dataset.isFavorite == "true") {
         favoriteIcon.src = favorited;
         favoriteIcon.style.filter = "invert(100%)";
+    } else {
+        favoriteIcon.src = notFavorited;
+        favoriteIcon.style.filter = "invert(50%)";
+    }
+    favoriteIcon.addEventListener("click", () => {
+        if (favoriteIcon.dataset.isFavorite == "true") {
+            favoriteIcon.src = notFavorited;
+            favoriteIcon.style.filter = "invert(50%)";
+            favoriteIcon.dataset.isFavorite = false;
+            unfavorite(data.resolvedAddress);
+        } else {
+            favoriteIcon.src = favorited;
+            favoriteIcon.style.filter = "invert(100%)";
+            favoriteIcon.dataset.isFavorite = true;
+            addFavorite(data.resolvedAddress);
+        }
     })
 
     topLine.appendChild(location);
@@ -266,7 +282,6 @@ function isNight(data) {
     const current = new Date(data.currentConditions.datetimeEpoch);
     const sunset = new Date(data.currentConditions.sunsetEpoch);
     const sunrise = new Date(data.currentConditions.sunriseEpoch);
-    console.log(sunrise);
     return current > sunset || current < sunrise;
 }
 
