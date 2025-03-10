@@ -8,39 +8,61 @@ import snow from "../icons/snow.svg";
 import forecast from "../icons/forecast.svg";
 import wind from "../icons/wind.svg";
 import precipIcon from "../icons/precip.svg";
+import favorited from "../icons/star.svg"
+import notFavorited from "../icons/star-outline.svg";
+import { addFavorite } from "./homepage";
 
-async function getWeatherData(location) {
+async function getWeatherData(location, forFavorite = false) {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=current&key=ECD428Y2SW62PXFBMX24NXTQ8&contentType=json&elements=%2Baqius`, {mode: "cors"});
     const cityData = await response.json();
-    displayWeatherData(cityData);
+    
+    displayWeatherData(cityData, forFavorite);
+    
 }
 
-function displayWeatherData(data) {
+function displayWeatherData(data, forFavorite) {
     const weatherContent = document.getElementById("weatherContent");
     weatherContent.innerHTML = '';
-    displayCurrent(data);
-    displayWeek(data);
-    displayWind(data);
-    displayAirQuality(data);
-    displayPrecip(data);
+    displayCurrent(data, forFavorite);
+    if (!forFavorite) {
+        displayWeek(data);
+        displayWind(data);
+        displayAirQuality(data);
+        displayPrecip(data);
+    }
 }
 
-function displayCurrent(data) {
+function displayCurrent(data, forFavorite) {
     const weatherContent = document.getElementById("weatherContent");
     const currentConditions = data.currentConditions;
-
-    const card = document.createElement("div");
-    card.setAttribute("id", "currentCard");
-
-    const timePlace = document.createElement("div");
-    timePlace.setAttribute("id", "timePlace");
+    let card;
+    if (forFavorite) {
+        card = document.getElementById("favorite");
+    }   else {
+        card = document.createElement("div");
+    }
+    card.classList.add("currentCard");
+    const topLine = document.createElement("div");
+    topLine.setAttribute("id", "topLine");
     const location = document.createElement("p");
-    const time = document.createElement("p");
-    time.textContent = `Updated ${currentConditions.datetime}`;
+    
     location.textContent = data.resolvedAddress;
     
-    timePlace.appendChild(location);
-    timePlace.appendChild(time);
+    const favoriteIcon = new Image(35,35);
+    favoriteIcon.style.filter = "invert(50%)";
+    favoriteIcon.src = notFavorited;
+    favoriteIcon.addEventListener("click", () => {
+        addFavorite(data.resolvedAddress);
+        favoriteIcon.src = favorited;
+        favoriteIcon.style.filter = "invert(100%)";
+    })
+
+    topLine.appendChild(location);
+    topLine.appendChild(favoriteIcon);
+
+    const time = document.createElement("p");
+    time.setAttribute("id", "time");
+    time.textContent = `Updated ${currentConditions.datetime}`;
 
     const tempMarker = document.createElement("h2");
     tempMarker.textContent = "F";
@@ -74,9 +96,15 @@ function displayCurrent(data) {
     weather.appendChild(tempHolder);
     weather.appendChild(conditions);
 
-    card.appendChild(timePlace);
+    card.appendChild(time);
+    card.appendChild(topLine);
     card.appendChild(weather);
-    weatherContent.appendChild(card);
+    if(forFavorite) {
+        document.getElementById("content").prepend(card);
+    } else {
+        weatherContent.appendChild(card);
+    }
+
 }
 
 function displayWeek(data) {

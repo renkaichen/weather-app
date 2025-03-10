@@ -1,12 +1,24 @@
 import getWeatherData from "./weatherDisplay";
+let favoriteLocations = [];
+
+function loadSavedData() {
+    console.log(localStorage.getItem('favoriteLocations'));
+    if (localStorage.getItem('favoriteLocations') != undefined) {
+        favoriteLocations = JSON.parse(localStorage.getItem('favoriteLocations'));
+    }
+}
 
 function initalize() {
+    loadSavedData();
     initalizeSearchbar();
+    initalizeFavorites();
 }
 
 function search() {
     const input = document.getElementById("search").value;
     document.getElementById("search").value = '';
+    document.getElementById("search").style.backgroundColor = "rgba(0,0,0,0%)";
+    document.getElementById("favorite").style.display = "none";
     getWeatherData(input);
 }
 
@@ -33,6 +45,35 @@ function initalizeSearchbar() {
     searchbar.appendChild(button);
 
     content.prepend(searchbar);
+}
+
+function initalizeFavorites() {
+    const content = document.getElementById("content");
+    const favorite = document.createElement("div");
+    favorite.setAttribute("id", "favorite");
+
+    const location = document.createElement("h4");
+    const currentTemp = document.createElement("h1");
+    const currentCondition = document.createElement("h2");
+
+    favorite.append(location,currentTemp, currentCondition);
+    content.prepend(favorite);
+
+    if (favoriteLocations.length == 0) {
+        location.textContent = "No Favorites Yet"
+    } else {
+        displayFavorite(0);
+    }
+}
+
+function displayFavorite(index) {
+    getWeatherData(favoriteLocations[index], true);
+    location.textContent = favoriteLocations[index];
+}
+
+export function addFavorite(location) {
+    favoriteLocations.push(location);
+    localStorage.setItem('favoriteLocations', JSON.stringify(favoriteLocations));
 }
 
 export default initalize;
