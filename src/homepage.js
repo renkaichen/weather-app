@@ -1,6 +1,17 @@
 import getWeatherData from "./weatherDisplay";
+import night1 from "../images/clearNight1.jpg";
+import night2 from "../images/clearNight2.jpg";
+import night3 from "../images/clearNight3.jpg";
+import night4 from "../images/clearNight4.jpg";
+import night5 from "../images/clearNight5.jpg";
+import day1 from "../images/day1.jpg";
+import day2 from "../images/day2.jpg";
+import day3 from "../images/day3.jpg";
+import day4 from "../images/day4.jpg";
+import day5 from "../images/day5.jpg";
 
-
+let nightImages = [night1, night2, night3, night4, night5];
+let dayImages = [day1, day2, day3, day4, day5];
 let favoriteLocations = [];
 let currentFavoriteIndex = null;
 
@@ -14,6 +25,7 @@ function initalize() {
     loadSavedData();
     initalizeSearchbar();
     initalizeFavorites();
+    loadBackgroundImage(false);
 }
 
 function search() {
@@ -135,5 +147,16 @@ function prevFavorite() {
     displayFavorite(currentFavoriteIndex);
 }
 
+export function loadBackgroundImage(night) {
+    const random = Math.floor(Math.random() * 5);
+    const img = document.querySelector("body");
+    let chosenImage;
+    if (night) {
+        chosenImage = nightImages[random]
+    } else {
+        chosenImage = dayImages[random];
+    } 
+    img.style.backgroundImage = `url(${chosenImage})`;
+}
 
 export default initalize;

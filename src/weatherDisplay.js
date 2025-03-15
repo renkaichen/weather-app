@@ -10,7 +10,7 @@ import wind from "../icons/wind.svg";
 import precipIcon from "../icons/precip.svg";
 import favorited from "../icons/star.svg"
 import notFavorited from "../icons/star-outline.svg";
-import { addFavorite, checkFavorites, unfavorite} from "./homepage";
+import { addFavorite, checkFavorites, unfavorite, loadBackgroundImage} from "./homepage";
 
 async function getWeatherData(location, forFavorite = false) {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=current&key=ECD428Y2SW62PXFBMX24NXTQ8&contentType=json&elements=%2Baqius`, {mode: "cors"});

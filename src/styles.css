@@ -20,11 +20,17 @@
     width: 850px;
     height: 100vh;
 }
+
+#backgroundImage {
+    width: 100vw;
+    height: 100vh;
+}
+
 body {
     background-color: #d6e3f5;  
     background-color: rgb(14, 14, 14);
     background-color: black;
-    background-image: url(../images/clearNight3.jpg);
+    /*background-image: url(../images/clearNight3.jpg);*/
     background-size: 100%;
     background-position-y: -100px;
 
