@@ -16,6 +16,7 @@
 }
 #background {
     background-color: rgba(0, 0, 0, 0.13);
+    position: relative;
     width: 850px;
     height: 100vh;
 }
@@ -254,4 +255,24 @@ meter {
     font-weight: 500;
     border-radius: 10px;
     width: min(100vw, 750px);
+}
+
+#rightButton {
+    background-image: url("../icons/menu-right.svg");
+    right: -12px;
+}
+
+#leftButton {
+    background-image: url("../icons/menu-left.svg");
+    left: -12px;
+
+}
+
+#rightButton,
+#leftButton {
+    width: 75px;
+    height: 75px;
+    filter: invert(100%);
+    position: absolute;
+    top: 110px;
 }
