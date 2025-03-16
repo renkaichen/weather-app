@@ -35,17 +35,23 @@ function search() {
 
 function updateSearchbar() {
     const searchbar = document.getElementById("searchbar");
-    const backButton = document.createElement("div");
-    backButton.setAttribute("id", "backButton");
-    backButton.addEventListener("click", () => {
+    if (document.getElementById("backButton") == null) {
+        const backButton = document.createElement("div");
+        backButton.setAttribute("id", "backButton");
+        backButton.addEventListener("click", () => {
         initalizeFavorites();
         searchbar.removeChild(backButton);
+        document.getElementById("weatherContent").innerHTML = '';
         document.getElementById("search").style.backgroundColor = "rgba(255,255,255)";
-    })
-    searchbar.prepend(backButton);
+        })
+        searchbar.prepend(backButton);
+    }
+
     document.getElementById("search").value = '';
     document.getElementById("search").style.backgroundColor = "rgba(0,0,0,0%)";
-    document.getElementById("favorite").style.display = "none";
+    if (document.getElementById("favorite") != null) {
+        document.getElementById("favorite").parentNode.removeChild(document.getElementById("favorite"));
+    }
 }
 
 function initalizeSearchbar() {
