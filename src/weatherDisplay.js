@@ -15,9 +15,9 @@ import { addFavorite, checkFavorites, unfavorite, loadBackgroundImage} from "./h
 async function getWeatherData(location, forFavorite = false) {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=current&key=ECD428Y2SW62PXFBMX24NXTQ8&contentType=json&elements=%2Baqius`, {mode: "cors"});
     const cityData = await response.json();
-    
+    console.log(cityData);
+    loadBackgroundImage(isNight(cityData));
     displayWeatherData(cityData, forFavorite);
-    
 }
 
 function displayWeatherData(data, forFavorite) {

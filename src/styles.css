@@ -24,6 +24,9 @@
 #backgroundImage {
     width: 100vw;
     height: 100vh;
+    position: absolute;
+    background-size: 100%;
+    background-position-y: -100px;
 }
 
 body {
@@ -69,8 +72,19 @@ body {
 
 #searchbar {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-#searchbar div {
+
+#backButton {
+    background-image: url("../icons/arrow-left-circle.svg");
+    height: 30px;
+    width: 30px;
+    filter: invert(50%);
+}
+
+#searchbar div:last-of-type {
     border-radius: 0px 10px 10px 0px;
     background-image: url(../icons/magnify.svg);
     background-repeat: no-repeat;
@@ -88,7 +102,7 @@ body {
 }
 
 #time {
-    color: rgb(165, 165, 165);
+    color: rgb(228, 226, 226);
     font-family: jakartaSansItalic;
     font-weight: 350;
     position: absolute;
@@ -282,3 +296,4 @@ meter {
     position: absolute;
     top: 110px;
 }
+

@@ -25,16 +25,27 @@ function initalize() {
     loadSavedData();
     initalizeSearchbar();
     initalizeFavorites();
-    loadBackgroundImage(false);
 }
 
 function search() {
     const input = document.getElementById("search").value;
-    console.log(input);
+    updateSearchbar();
+    getWeatherData(input);
+}
+
+function updateSearchbar() {
+    const searchbar = document.getElementById("searchbar");
+    const backButton = document.createElement("div");
+    backButton.setAttribute("id", "backButton");
+    backButton.addEventListener("click", () => {
+        initalizeFavorites();
+        searchbar.removeChild(backButton);
+        document.getElementById("search").style.backgroundColor = "rgba(255,255,255)";
+    })
+    searchbar.prepend(backButton);
     document.getElementById("search").value = '';
     document.getElementById("search").style.backgroundColor = "rgba(0,0,0,0%)";
     document.getElementById("favorite").style.display = "none";
-    getWeatherData(input);
 }
 
 function initalizeSearchbar() {
@@ -74,6 +85,7 @@ function initalizeFavorites() {
 
     if (favoriteLocations.length == 0) {
         location.textContent = "No Favorites Yet"
+        document.getElementById("backgroundImage").style.backgroundImage = `url(${day1})`;
     } else {
         currentFavoriteIndex = 0;
 
@@ -147,16 +159,49 @@ function prevFavorite() {
     displayFavorite(currentFavoriteIndex);
 }
 
-export function loadBackgroundImage(night) {
+export async function loadBackgroundImage(night) {
     const random = Math.floor(Math.random() * 5);
-    const img = document.querySelector("body");
+    const img = document.getElementById("backgroundImage");
     let chosenImage;
     if (night) {
-        chosenImage = nightImages[random]
+        chosenImage = nightImages[random];
     } else {
         chosenImage = dayImages[random];
     } 
-    img.style.backgroundImage = `url(${chosenImage})`;
+    transition(chosenImage);
 }
+
+function transition(image) {
+    const img = document.getElementById("backgroundImage");
+    let op = 1;
+    let grayscale = 0;
+    var timer = setInterval(function() {
+        if (op <= 0.4) {
+            clearInterval(timer);
+            fadeIn(image);
+        }
+        img.style.filter = `grayscale(${grayscale}%)`;
+        img.style.opacity = op;
+        op -= 0.1;
+        grayscale += 10;
+    }, 10);
+}
+
+function fadeIn(image) {
+    const img = document.getElementById("backgroundImage");
+    img.style.backgroundImage = `url(${image})`;
+    let op = 0.4;
+    let grayscale = 40;
+    var timer = setInterval(function() {
+        if (op >= 1) {
+            clearInterval(timer);
+        }
+        img.style.filter = `grayscale(${grayscale}%)`;
+        img.style.opacity = op;
+        op += 0.01;
+        grayscale -= 1;
+    }, 10);
+}
+
 
 export default initalize;
